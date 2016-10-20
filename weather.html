@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Local Weather</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<style type="text/css">
+	body{
+		background-image: url(http://lorempixel.com/800/600/nature);
+		background-repeat: no-repeat;
+		background-size: cover;
+		color: #333;
+		font-family: 'Tahoma', sans-serif;
+		font-weight:400;
+	}
+	.jumbotron{
+		margin: 25% 25%;
+		width: 50%;
+	}
+</style>
+<body>
+	<div class="container text-center">
+		<div class="jumbotron">
+			<div class="row">
+				<div class="col-xs-12 col-lg-12 col-centered">
+					<header>
+						<h1>Weather App</h1>
+					</header>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-lg-12 col-centered text-center">
+					<h2 id="out"></h2>
+					<button class="btn btn-primary temperature hide" id="celsius">Celsius</button>
+					<button class="btn btn-primary temperature " id="fahrenheit">Fahrenheit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script type="text/javascript">
+	var unit = ['&units=metric', '&units=imperial', ' &#8451;', ' &#8457;'];
+	var openWeatherAPIKey = '2b759d64f7a471d9a6510b0d9c1cc6e6';
+	var x = 0;
+	var city;
+
+	function getLocation(){
+		var output = $('#out');
+		setTimeout(getWeather, 5000);
+	}
+
+	$.getJSON('http://ipinfo.io', function(data){
+		city = data.city;
+	});
+
+	$('.temperature').on('click', function(){
+		if(x === 1){
+			x = 0;
+			$('#fahrenheit').removeClass('hide');
+			$('#celsius').addClass('hide');
+			getWeather();
+		} else {
+			x = 1;
+			$('#celsius').removeClass('hide');
+			$('#fahrenheit').addClass('hide');
+			getWeather();
+		}
+	});
+
+
+	function getWeather(){
+		var url = 'http://api.openweathermap.org/data/2.5/weather?q='+city+unit[x]+'&format=json&APPID='+openWeatherAPIKey;
+		$.getJSON(url, function(data){
+			var desc = data.weather[0].description;
+			desc = desc[0].toUpperCase() + desc.slice(1);
+			$('#out').empty();
+			$('#out').append(data.name + ', ' + city + ', ' + data.sys.country +'<br>');
+			$('#out').append(parseFloat(data.main.temp) + unit[x+2]);
+			console.log(data.main.temp);
+			$('#out').append('<br>' + desc);
+			$('#out').append('<img src="http://openweathermap.org/img/w/'+data.weather[0].icon+'.png"></img>');
+		});
+	}
+
+
+	$('document').ready(function(){
+		getWeather();
+		getLocation();
+	});
+
+</script>
+</html>

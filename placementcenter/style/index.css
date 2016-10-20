@@ -1,0 +1,89 @@
+h3
+{
+	font-size: 1.5em;
+	color: #aaa;
+}
+a:hover
+{
+	color: #10F;
+	background-color: #0066FF;
+	padding: 15px;
+}
+a:active 
+{
+	color: red;
+} 
+a
+{
+	color: #aaa;
+	text-decoration: none;
+}
+html
+{
+	background-image: url('../images/1.jpg');
+	background-repeat: no-repeat;
+	background-position: left top;
+	background-size: 1366px 680px;
+}
+.header
+{
+	margin: -27 -10 0 -10px;
+	/*position: absolute;*/
+	background-position: top left;
+	background-color: rgba(0,0,0,0.8);
+	background-size: 70em 50em;
+	/*display: inline;*/
+}
+#head
+{
+	margin-top: -18px;
+	margin-left: -10px;
+	margin-right: 0px;
+	text-align: left;
+	color: #aaa;
+	display: inline;
+	padding: 28px;
+	position: absolute;
+	/*float: left;*/
+}
+#options
+{
+	display: inline;
+	margin-top: -18px;
+	color: #aaa;
+	padding: 20px;
+	text-decoration: none;
+	border-left: 500px;
+	}
+	.menu
+{
+	margin-top: 5px;
+	display: inline;
+	position: absolute;
+	color: #aaa;
+	padding: 15px;
+	text-decoration: none;
+}		
+#home
+{
+	margin-left: 33em;
+}
+#login
+{
+	margin-left: 38em;
+}
+#signup
+{
+	margin-left: 43em;
+}
+#aboutus
+{
+	margin-left: 48em;
+}
+#fav
+{
+	width: 300px;
+	height: 300px;
+	padding: 20px;
+	margin-top: 100px;	
+}
