@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Twitch JSON API</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="http://bootswatch.com/cyborg/bootstrap.min.css">
+	<link rel="shortcut icon" href="ysv-favicon.jpg">
+</head>
+<style type="text/css">
+	#logo{
+		padding-top: 25px;
+		width: 100px;
+	}
+	#status{
+		position: absolute;
+		top: 50%;
+	}
+	.jumbotron{
+		background-color: #222
+	}
+	.gray{
+		vertical-align: middle;
+		align-self: center;
+		height: 150px;
+		background-color: #222;
+		border-radius: 5px;
+	}
+	.all{
+		margin-top: 50px;
+	}
+	.online{
+		margin-top: 50px;
+	}
+	.offline{
+		margin-top: 50px;
+	}
+	i{
+		padding: 60px 75px;
+	}
+
+</style>
+<body>
+	<div class="container">
+		<div class="jumbotron text-center">
+			<h1>Twitch.TV JSON API</h1>
+		</div>
+		<div id="tab" class="btn-group col-md-offset-5" data-toggle="buttons">
+			<label class="btn btn-large btn-primary active" id="all">
+				<input type="radio" name="type"> All
+			</label>
+			<label class="btn btn-large btn-primary" id="online">
+				<input type="radio" name="type"> Online
+			</label>
+			<label class="btn btn-large btn-primary" id="offline">
+				<input type="radio" name="type"> Offline
+			</label>
+		</div>
+		<div class="row">			
+			<div class=" row col-md-8 col-md-offset-2 all">
+
+			</div>
+			<div class=" row col-md-8 col-md-offset-2 online hide">
+
+			</div>
+			<div class=" row col-md-8 col-md-offset-2 offline hide">
+
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	var streamers = ["ESL_SC2", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+	var temp = streamers;
+	var clientId = 'c8a3wkkb56yqjhlcui7tcfyjvs65dy6';
+	function getInfo(){
+		for(var i=0;i<streamers.length;i++){
+			if(streamers[i]=="" || streamers[i]===null || streamers[i]===undefined)
+				continue;
+			$.getJSON('https://api.twitch.tv/kraken/streams/'+streamers[i]+'?callback=?&client_id=' + clientId, function(data) {
+				if (data.stream) {
+					$('.all').append('<a href="https://twitch.tv/'+data.stream.channel.name+'" target="_blank"><div class="row gray"><div class="col-md-3 col-centered"><img src="'+data.stream.channel.logo+'" id="logo" class="img img-rounded img-responsive"></div><div class="col-md-6 col-centered"><h3 class="text-center" id="name">'+data.stream.channel.display_name+'</h3><br><p class="text-center">'+data.stream.channel.status+'</p></div><div class="col-md-3 col-centered"><i class=" fa fa-check-circle fa-2x text-success" title="Online"></i></div></div></a><br>');
+					$('.online').append('<a href="https://twitch.tv/'+data.stream.channel.name+'" target="_blank"><div class="row gray"><div class="col-md-3 col-centered"><img src="'+data.stream.channel.logo+'" id="logo" class="img img-rounded img-responsive"></div><div class="col-md-6 col-centered"><h3 class="text-center" id="name">'+data.stream.channel.display_name+'</h3><br><p class="text-center">'+data.stream.channel.status+'</p></div><div class="col-md-3 col-centered"><i class=" fa fa-check-circle fa-2x text-success" title="Online"></i></div></div></a><br>');
+				}
+				else{
+					var name = data._links.channel.split('/');
+					$('.all').append('<div class="row gray"><div class="col-md-3 col-centered"><img src="http://placehold.it/100/?text=Offline" id="logo" class="img img-rounded img-responsive"></div><div class="col-md-6 col-centered"><h3 id="name" class="text-center">'+name[5]+'</h3></div><div class="col-md-3 col-centered"><i class=" fa fa-minus-circle fa-2x text-danger" title="Offline"></i></div></div><br>');
+					$('.offline').append('<div class="row gray"><div class="col-md-3 col-centered"><img src="http://placehold.it/100/?text=Offline" id="logo" class="img img-rounded img-responsive"></div><div class="col-md-6 col-centered"><h3 id="name" class="text-center">'+name[5]+'</h3></div><div class="col-md-3 col-centered"><i class=" fa fa-minus-circle fa-2x text-danger" title="Offline"></i></div></div><br>');
+				}
+			});
+		}
+	}
+	
+	$(document).ready(function(){
+		getInfo();
+		$('#all').on('click',function(){
+			$('.online').addClass('hide');
+			$('.offline').addClass('hide');
+			$('.all').removeClass('hide');
+		});
+		$('#online').on('click',function(){
+			$('.all').addClass('hide');
+			$('.offline').addClass('hide');
+			$('.online').removeClass('hide');
+		});
+		$('#offline').on('click',function(){
+			$('.all').addClass('hide');
+			$('.online').addClass('hide');
+			$('.offline').removeClass('hide');
+		});
+	});
+</script>
+</html>
