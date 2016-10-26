@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS Calculator</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="http://bootswatch.com/cerulean/bootstrap.min.css">
+	<link rel="shortcut icon" href="ysv-favicon.jpg">
+</head>
+<style type="text/css">
+	@import url(https://fonts.googleapis.com/css?family=VT323);
+	body{
+		background-image: url(http://preview.cutcaster.com/904152325-Seamless-wavy-line-pattern.jpg);
+	}
+	h1{
+		font-size: 75px;
+	}
+	.jumbotron{
+		margin: 7% auto;
+		width: 50%;
+		background-color: #333;
+	}
+	#display{
+		font-family: 'VT323', monospace;
+		background-color: white;
+		height: 60px;
+		font-size: 45px;
+	}
+	.row{
+		margin-top: 30px;
+	}
+	.btn{
+		width: 100%;
+		height: 60px;
+	}
+	.btn:hover{
+		opacity: 0.8;
+	}
+</style>
+<body>
+	<div class="container">
+		<h1 class="text-center">JS Calculator</h1>
+		<div class="jumbotron">
+			<div class="row">
+				<div class="col-md-12">
+					<input class="form-control text-right" id="display" readonly>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9">
+					<button class="btn btn-danger btn-lg clear" id="clear">CE</button>
+				</div>
+				<div class="col-md-3" align="center">
+					<button class="btn btn-warning btn-lg symbol" id="divide">/</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3" align="center">
+					<button class="btn btn-default btn-lg number" id="seven">7</button>
+				</div>
+				<div class="col-md-3" align="center">
+					<button class="btn btn-default btn-lg number" id="eight">8</button>
+				</div>
+				<div class="col-md-3" align="center">
+					<button class="btn btn-default btn-lg number" id="nine">9</button>
+				</div>
+				<div class="col-md-3" align="center">
+					<button class="btn btn-warning btn-lg symbol" id="multiply">x</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3" align="center">
+					<button class="btn btn-default btn-lg number" id="four">4</button>
+				</div>
+				<div class="col-md-3" align="center">
+					<button class="btn btn-default btn-lg number" id="five">5</button>
+				</div>
+				<div class="col-md-3" align="center">
+					<button class="btn btn-default btn-lg number" id="six">6</button>
+				</div>
+				<div class="col-md-3" align="center">
+					<button class="btn btn-warning btn-lg symbol" id="minus">-</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3" align="center">
+					<button class="btn btn-default btn-lg number" id="one">1</button>
+				</div>
+				<div class="col-md-3" align="center">
+					<button class="btn btn-default btn-lg number" id="two">2</button>
+				</div>
+				<div class="col-md-3" align="center">
+					<button class="btn btn-default btn-lg number" id="three">3</button>
+				</div>
+				<div class="col-md-3" align="center">
+					<button class="btn btn-warning btn-lg symbol" id="add">+</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3" align="center">
+					<button class="btn btn-default btn-lg number" id="zero">0</button>
+				</div>
+				<div class="col-md-3" align="center">
+					<button class="btn btn-default btn-lg number" id="dzero">00</button>
+				</div>
+				<div class="col-md-3" align="center">
+					<button class="btn btn-default btn-lg number" id="point">.</button>
+				</div>
+				<div class="col-md-3" align="center">
+					<button class="btn btn-warning btn-lg symbol" id="equal">=</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/3.6.0/math.min.js"></script>
+<script type="text/javascript">
+	var temp;
+	$(document).ready(function(){
+		$('#display').val(0);
+		$('#clear').click(function(){
+			$('#display').val('0');
+		});
+		$('#equal').click(function(){
+			var exp = $('#display').val();
+			try{
+				var result = math.eval(exp);
+				$('#display').val(result);
+			}
+			catch(e){
+				$('#display').val('Error');
+			}
+		});
+		$('#one').click(function(){
+			temp = $('#display').val();
+			if(temp == '0')
+				$('#display').val('1');
+			else
+				$('#display').val(temp + '1');
+		});
+		$('#two').click(function(){
+			temp = $('#display').val();
+			if(temp == '0')
+				$('#display').val('2');
+			else
+				$('#display').val(temp + '2');
+		});
+		$('#three').click(function(){
+			temp = $('#display').val();
+			if(temp == '0')
+				$('#display').val('3');
+			else
+				$('#display').val(temp + '3');
+		});
+		$('#four').click(function(){
+			temp = $('#display').val();
+			if(temp == '0')
+				$('#display').val('4');
+			else
+				$('#display').val(temp + '4');
+		});
+		$('#five').click(function(){
+			temp = $('#display').val();
+			if(temp == '0')
+				$('#display').val('5');
+			else
+				$('#display').val(temp + '5');
+		});
+		$('#six').click(function(){
+			temp = $('#display').val();
+			if(temp == '0')
+				$('#display').val('6');
+			else
+				$('#display').val(temp + '6');
+		});
+		$('#seven').click(function(){
+			temp = $('#display').val();
+			if(temp == '0')
+				$('#display').val('7');
+			else
+				$('#display').val(temp + '7');
+		});
+		$('#eight').click(function(){
+			temp = $('#display').val();
+			if(temp == '0')
+				$('#display').val('8');
+			else
+				$('#display').val(temp + '8');
+		});
+		$('#nine').click(function(){
+			temp = $('#display').val();
+			if(temp == '0')
+				$('#display').val('9');
+			else
+				$('#display').val(temp + '9');
+		});
+		$('#add').click(function(){
+			temp = $('#display').val();
+			if(temp !='0')
+				$('#display').val(temp + ' + ');
+		});
+		$('#minus').click(function(){
+			temp = $('#display').val();
+			if(temp !='0')
+				$('#display').val(temp + ' - ');
+		});
+		$('#multiply').click(function(){
+			temp = $('#display').val();
+			if(temp !='0')
+				$('#display').val(temp + ' * ');
+		});
+		$('#divide').click(function(){
+			temp = $('#display').val();
+			if(temp !='0')
+				$('#display').val(temp + ' / ');
+		});
+		$('#zero').click(function(){
+			temp = $('#display').val();
+			if(temp !='0')
+				$('#display').val(temp + '0');
+		});
+		$('#dzero').click(function(){
+			temp = $('#display').val();
+			if(temp !='0')
+				$('#display').val(temp + '00');
+		});
+		$('#point').click(function(){
+			temp = $('#display').val();
+			$('#display').val(temp + '.');
+		});
+
+	});
+</script>
+</html>
