@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pomodoro Clock</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="http://bootswatch.com/united/bootstrap.min.css">
+	<link rel="shortcut icon" href="ysv-favicon.jpg">
+</head>
+<style type="text/css">
+	#break{
+		width: 50px;
+		background-color: #fff;
+	}
+	#clock{
+		width: 50px;
+		background-color: #fff;
+	}
+	.btn-circle{
+		margin-top: 100px;
+		font-size: 70px;
+		width: 300px;
+		height: 300px;
+		border-radius: 100%;
+	}
+</style>
+<body>
+	<div class="container">
+		<div class="jumbotron text-center">
+			<h1>PoMoDoRo Clock</h1>
+		</div>
+		<h2 class="text-danger text-center time">Session Time!</h2>
+		<div class="col-md-8 col-md-offset-2  text-center">
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-2 col-md-offset-2">
+						<div class="col-md-offset-6">
+							<label>Break</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<button class="btn btn-default" id="breakminus">-</button>
+				</div>
+				<div class="col-md-2 col-centered">
+					<input class="form-control text-center" type="text" id="break" value="5" readonly>
+				</div>
+				<div class="col-md-2 col-md-offset-1">
+					<button class="btn btn-default" id="breakplus">+</button>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-2 col-md-offset-6">
+						<label>Clock</label>
+					</div>
+				</div>
+				<div class="col-md-2 col-md-offset-4">
+					<button class="btn btn-default" id="clockminus">-</button>
+				</div>
+				<div class="col-md-2 col-centered">
+					<input class="form-control text-center" type="text" id="clock" value="25" readonly>
+				</div>
+				<div class="col-md-2 col-md-offset-1">
+					<button class="btn btn-default" id="clockplus">+</button>
+				</div>
+			</div>
+			<div class="col-md-8 col-md-offset-2">
+				<button class="btn btn-danger btn-lg btn-circle"></button>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	var i,id,t,flag=false,click=false;
+	function startTimer(duration, breaktime, display) {
+		var timer = duration, minutes, seconds;
+		id = setInterval(function () {
+			minutes = parseInt(timer / 60, 10)
+			seconds = parseInt(timer % 60, 10);
+
+			minutes = minutes < 10 ? "0" + minutes : minutes;
+			seconds = seconds < 10 ? "0" + seconds : seconds;
+
+			display.text(minutes + ":" + seconds);
+			--timer;
+			if (timer < 0) {
+				if(flag){
+					flag = false;
+					timer = breaktime;
+					$('.time').addClass('text-success').removeClass('text-danger').text('Break Time!');
+					$('.btn-circle').addClass('btn-success').removeClass('btn-danger');
+				}
+				else{
+					flag = true;
+					timer = duration;
+					$('.time').addClass('text-danger').removeClass('text-success').text('Session Time!');
+					$('.btn-circle').addClass('btn-danger').removeClass('btn-success');
+				}
+			}
+		}, 1000);
+	}
+
+	jQuery(function ($) {
+		var fiveMinutes = 60 * 5,
+		display = $('#time');
+		startTimer(fiveMinutes, display);
+	});
+	$(document).ready(function(){
+		$('.btn-circle').text($('#clock').val());
+		$('#breakminus').click(function(){
+			i = parseInt($('#break').val());
+			if(i>1)
+				$('#break').val(i - 1);
+		});
+		$('#breakplus').click(function(){
+			i = parseInt($('#break').val());
+			$('#break').val(i + 1);
+		});
+		$('#clockminus').click(function(){
+			i = parseInt($('#clock').val());
+			if(i>1)
+				$('#clock').val(i - 1);
+			$('.btn-circle').text($('#clock').val());
+		});
+		$('#clockplus').click(function(){
+			i = parseInt($('#clock').val());
+			$('#clock').val((i + 1));
+			$('.btn-circle').text($('#clock').val());
+		});
+		$('.btn-circle').click(function(){
+			if(click){
+				click=false;
+				clearInterval(id);
+			}
+			else{
+				click = true;
+				flag = true;
+				dis = $(this);
+				t = 60*parseInt($('.btn-circle').text());
+				b = 60*parseInt($('#break').val());
+				startTimer(t,b,dis);
+			} 
+		});
+	});
+</script>
+</html>
