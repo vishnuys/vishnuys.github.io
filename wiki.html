@@ -72,35 +72,45 @@
 <script type="text/javascript" src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-	  //initiate  var for json GET call
-	  var searchTerm = "";
+	  	//initiate  var for json GET call
+	  	var searchTerm = "";
 
-	  $("#form").on('submit',function(e) {
-	  	e.preventDefault();
-	  	searchTerm = document.getElementById('wikiquery').value;
-	      //pull JSON data from Wikipedia using searchTerm variable
-	      $.getJSON("https://en.wikipedia.org/w/api.php?action=opensearch&search=" + searchTerm + "&limit=10&namespace=0&format=json", function(json) {
-	        //initiate var used to add html elements to the DOM
-	        var html = "";
-	        //reset .results for multiple searches
-	        $(".results").empty();
-	        //run a loop to save the 10 sets of JSON data to the "html" var
-	        for (var i = 0; i < json[1].length; i++) {
-	        	html += "<div class='wikiBox' style='display:none'>";
-	        	html += "<a href=" + json[3][i] + " target='_blank'><span id='titles'><strong>" + json[1][i] + "</strong></span></a><br>";
-	        	html += "<span>" + json[2][i] + "..." + "</span><br><br>";
-	        	html += "<a href='" + json[3][i] + "' target='_blank'>" + json[3][i] + "</a><br>";
-	        	html += "</div>";
-	        	html += "</div><br>";
-	        }
-	        
-	        //target .results div class and change the HTML elements with "html" var
-	        $(html).appendTo(".results").fadeIn(500);
+	  	$("#form").on('submit',function(e) {
+	  		e.preventDefault();
+	  		searchTerm = document.getElementById('wikiquery').value;
+		    //pull JSON data from Wikipedia using searchTerm variable
+		    $.ajax({
+		    	dataType: 'jsonp',
+		    	url: "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + searchTerm + "&limit=10&namespace=0&format=json",
+		    	headers: {
+		    	    "cache-control": "no-cache",
+		    	    "postman-token": "6fa47423-e79d-7ee6-ba90-976bca5831fe"
+		    	},
+		    	xhrFields: { withCredentials: true },
+		    	success: function(json) {
+		        	//initiate var used to add html elements to the DOM
+		        	var html = "";
+		        	//reset .results for multiple searches
+		        	$(".results").empty();
+		        	//run a loop to save the 10 sets of JSON data to the "html" var
+		        	for (var i = 0; i < json[1].length; i++) {
+		        		html += "<div class='wikiBox' style='display:none'>";
+		        		html += "<a href=" + json[3][i] + " target='_blank'><span id='titles'><strong>" + json[1][i] + "</strong></span></a><br>";
+		        		html += "<span>" + json[2][i] + "..." + "</span><br><br>";
+		        		html += "<a href='" + json[3][i] + "' target='_blank'>" + json[3][i] + "</a><br>";
+		        		html += "</div>";
+		        		html += "</div><br>";
+		        	}
 
-	    });
-	      //reset form field after 'Enter'
-	      $("form").trigger("reset");
-	  });
-	});
-</script>
-</html>
+			        //target .results div class and change the HTML elements with "html" var
+			        $(html).appendTo(".results").fadeIn(500);
+
+			    }
+			});
+
+	      	//reset form field after 'Enter'
+	      	$("form").trigger("reset");
+      	});
+  	});
+	</script>
+	</html>
