@@ -15,7 +15,7 @@
 		font-weight:400;
 	}
 	.jumbotron{
-		margin: 25% 25%;
+		margin: 12.5% 25%;
 		width: 50%;
 	}
 </style>
@@ -51,7 +51,7 @@
 		setTimeout(getWeather, 5000);
 	}
 
-	$.getJSON('http://ipinfo.io', function(data){
+	$.getJSON('https://ipinfo.io', function(data){
 		city = data.city;
 	});
 
@@ -80,7 +80,7 @@
 			$('#out').append(parseFloat(data.main.temp) + unit[x+2]);
 			console.log(data.main.temp);
 			$('#out').append('<br>' + desc);
-			$('#out').append('<img src="http://openweathermap.org/img/w/'+data.weather[0].icon+'.png"></img>');
+			$('#out').append('<img src="https://openweathermap.org/img/w/'+data.weather[0].icon+'.png"></img>');
 		});
 	}
 
