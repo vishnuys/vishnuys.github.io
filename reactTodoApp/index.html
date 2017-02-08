@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+	<title>ToDo App</title>
+
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+</head>
+<body>
+	<nav class="light-blue lighten-1" role="navigation">
+		<div class="nav-wrapper container">
+			<a id="logo-container" href="#" class="brand-logo">To-Do App</a>
+		</div>
+	</nav>
+	<div class="section no-pad-bot row" id="index-banner">
+	</div>
+
+	<div class="modal" id="newTodo">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Add Todo</h4>
+				</div>
+				<div class="modal-body">
+					<textarea name="addTodo" class="input-field" id="todoText" rows="100"></textarea>
+				</div>
+				<br>
+				<div class="modal-footer">
+					<a href="#!" class="btn modal-action modal-close amber right">Close</a>
+					<a href="#!" class="btn modal-action modal-close light-green center-align" id="saveTodo">Save</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--  Scripts-->
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+	<script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+	<script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+	<script type="text/babel" src="index.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('.modal').modal();
+		});
+	</script>
+</body>
+</html>
