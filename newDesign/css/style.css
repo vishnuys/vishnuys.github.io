@@ -689,3 +689,8 @@ h6.title{
 .socail-link a:hover i{
 	color: #fff;
 }
+
+a.email {
+	unicode-bidi: bidi-override;
+    direction: rtl;
+}
