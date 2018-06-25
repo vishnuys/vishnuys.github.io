@@ -1,0 +1,62 @@
+User-Agent: Googlebot
+Disallow: /old
+Allow: /
+
+User-agent: yahoo
+Disallow: /old
+Allow: /
+
+User-agent: Bingbot
+Disallow: /old
+Allow: /
+
+User-agent: bing
+Disallow: /old
+Allow: /
+
+User-agent: Applebot
+Disallow: /old
+Allow: /
+
+User-agent: baiduspider
+Disallow: /old
+Allow: /
+
+User-agent: ia_archiver
+Disallow: /old
+Allow: /
+
+User-agent: msnbot
+Disallow: /old
+Allow: /
+
+User-agent: Naverbot
+Disallow: /old
+Allow: /
+
+User-agent: seznambot
+Disallow: /old
+Allow: /
+
+User-agent: Slurp
+Disallow: /old
+Allow: /
+
+User-agent: teoma
+Disallow: /old
+Allow: /
+
+User-agent: Twitterbot
+Disallow: /old
+Allow: /
+
+User-agent: Yandex
+Disallow: /old
+Allow: /
+
+User-agent: Yeti
+Disallow: /old
+Allow: /
+
+User-Agent: *
+Disallow: /
